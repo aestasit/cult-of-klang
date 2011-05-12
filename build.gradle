@@ -1,0 +1,36 @@
+apply from: 'variables.gradle'
+apply from: 'dependencies.gradle'
+
+version = '1.0-SNAPSHOT'
+group = 'com.aestas.blog'
+dependsOnChildren()
+
+subprojects {
+
+  apply plugin: 'java'
+  apply plugin: 'idea'
+
+  sourceCompatibility = '1.6'
+  targetCompatibility = '1.6'
+  configurations {
+	runtime.exclude group: 'commons-logging', name: 'commons-logging'
+  }
+	
+  dependencies {
+	
+	compile 'org.slf4j:jcl-over-slf4j:1.6.1'
+	compile 'com.aestas:akka-servlet:1.0-SNAPSHOT'
+	compile akkaLibraries
+	compile("se.scalablesolutions.akka:akka-remote:$akkaVersion")
+    compile "com.google.guava:guava:$guavaVersion"
+
+  }
+  task wrapper(type: Wrapper) {
+    gradleVersion = '0.9-rc-3'
+}
+
+}
+
+
+
+
