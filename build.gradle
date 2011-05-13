@@ -5,11 +5,10 @@ version = '1.0-SNAPSHOT'
 group = 'com.aestas.blog'
 dependsOnChildren()
 
-subprojects {
 
   apply plugin: 'java'
   apply plugin: 'idea'
-
+  apply plugin: 'jetty'
   sourceCompatibility = '1.6'
   targetCompatibility = '1.6'
   configurations {
@@ -26,10 +25,10 @@ subprojects {
 
   }
   task wrapper(type: Wrapper) {
-    gradleVersion = '0.9-rc-3'
-}
+    gradleVersion = '0.9-rc-3' 
+  }
 
-}
+
 
 
 

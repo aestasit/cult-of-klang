@@ -1,8 +1,7 @@
 Sample Akka client/server application to reproduce "No sender future in scope" error.
 
-cd to "akka-remote"
-./gradlew clean build jettyRun (or if you have gradle installed, just use gradle)
+./gradlew clean build jettyRun (or if you have gradle installed, just use gradle) to run the server
 
-Open the project with Intellij Idea and run the "AkkaClient" class located in akka-application
+Open the project with Intellij Idea and run the "AkkaClient" class located and run the main method.
 
 That should reproduce the error.
