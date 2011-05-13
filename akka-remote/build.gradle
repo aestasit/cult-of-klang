@@ -1,7 +1,0 @@
-apply plugin: 'jetty'
-
-dependencies {
-	
-	compile project(':akka-actors')
-
-}
