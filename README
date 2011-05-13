@@ -4,4 +4,16 @@ Sample Akka client/server application to reproduce "No sender future in scope" e
 
 Open the project with Intellij Idea and run the "AkkaClient" class located and run the main method.
 
-That should reproduce the error.
+That should reproduce the error:
+
+akka.actor.IllegalActorStateException: No sender future in scope
+[T500W7LFI_18e561a1-7d4b-11e0-987c-001c25a158cc]
+        at akka.actor.TypedActor$$anonfun$future$2.apply(TypedActor.scala:209)
+        at akka.actor.TypedActor$$anonfun$future$2.apply(TypedActor.scala:209)
+        at scala.Option.getOrElse(Option.scala:109)
+        at akka.actor.TypedActor.future(TypedActor.scala:209)
+        at com.aestas.blog.akka.actor.MyAkkaService.callAndWait(MyAkkaService.java:50)
+        at com.aestas.blog.akka.actor.MyService$$ProxiedByAWDelegation$$1305634543760.aw$original$_AW_$callAndWait$_AW_$com_aestas_blog_akka_actor_MyService$$ProxiedByAWDelegation$$1305634543760(Unknown Source)
+
+	
+Please note that the error doesn't appear all the times. In some rare cases, a differente exception is thrown.
