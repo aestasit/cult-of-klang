@@ -15,37 +15,26 @@ import static akka.actor.Actors.remote;
  * User: lfi
  */
 public class AkkaClient {
-    private static List<Integer> list = Lists.newArrayList();
 
     public static void main(String[] args) throws InterruptedException {
 
-        // init round robin list
-        for (int i=0;i<60;i++) {
-            list.add(i);
+        Iterator<MyService> iterator; {
+            List<MyService> list = Lists.newArrayList();
+
+            // init round robin list
+            for (int i=0;i<60;i++) list.add(remote().typedActorFor(MyService.class, "my-service-" + i, 60000L, "localhost", 9919));
+
+            iterator = Iterators.cycle(list);
         }
-        Iterator<Integer> iterator = Iterators.cycle(list);
+
 
         List<Future<String>> l1 = new ArrayList<Future<String>>();
-        for (int i = 0; i < 120; i++) {
-            int id = iterator.next();
-            l1.add(testConcurrency("ping - " + id, 2000L, id));
+        for (int i = 0; i < 120; i++)
+            l1.add(iterator.next().callAndWait("ping - " + i, 2000L));
 
-        }
-
-        for (Future<String> f:l1) {
-            f.await();
-            System.out.println(f.resultOrException().get());
-        }
+        for (Future<String> f : l1)
+            System.out.println(f.get());
 
         System.exit(0);
-    }
-
-    private static Future<String> testConcurrency(String message, Long time, int _id) {
-        MyService actor = remote()
-                .typedActorFor(MyService.class, "my-service-" + _id, 60000L, "localhost", 9919);
-
-        return actor.callAndWait(message, time);
-
-
     }
 }

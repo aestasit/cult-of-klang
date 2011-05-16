@@ -1,11 +1,12 @@
 apply from: 'variables.gradle'
 apply from: 'dependencies.gradle'
+apply plugin:'application'
 
 version = '1.0-SNAPSHOT'
 group = 'com.aestas.blog'
 dependsOnChildren()
 
-
+  mainClassName = "com.aestas.blog.akka.client.AkkaClient"
   apply plugin: 'java'
   apply plugin: 'idea'
   apply plugin: 'jetty'
@@ -25,7 +26,7 @@ dependsOnChildren()
 
   }
   task wrapper(type: Wrapper) {
-    gradleVersion = '0.9-rc-3' 
+    gradleVersion = '1.0-milestone-3'
   }
 
 

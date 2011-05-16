@@ -7,10 +7,6 @@ import akka.dispatch.Future;
  */
 public class MyAkkaService extends TypedActor implements MyService  {
 
-    private Integer testValue = 0;
-
-    private String x1;
-    private String x2;
     public MyAkkaService() {
 
     }
@@ -19,25 +15,6 @@ public class MyAkkaService extends TypedActor implements MyService  {
         getContext().setId(id);
     }
 
-    public MyAkkaService(String a, String b) {
-
-        x1 = a;
-        x2 = b;
-    }
-    public Future<String> getServiceData(final String id) {
-
-        testValue++;
-        return future("hello :: " + testValue);
-    }
-
-    public Future<Integer> getTestValue() {
-        return future(testValue);
-
-    }
-
-    public Future<String> getX1() {
-        return future(x1);
-    }
 
     public Future<String> callAndWait(final String message, final Long wait) {
         System.out.println("bling: " + System.currentTimeMillis() + " | " + message) ;

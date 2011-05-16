@@ -23,30 +23,19 @@ public class Bootstrap {
     private final static int TIMEOUT = 5000;
 
     static {
-
-
-       MessageDispatcher md = Dispatchers.newExecutorBasedEventDrivenWorkStealingDispatcher("pooled-dispatcher-")
+       TypedActorConfiguration tac = new TypedActorConfiguration();
+            tac.dispatcher(Dispatchers.newExecutorBasedEventDrivenWorkStealingDispatcher("pooled-dispatcher-")
                             .withNewThreadPoolWithLinkedBlockingQueueWithUnboundedCapacity()
                             .setCorePoolSize(60)
                             .setMaxPoolSize(60)
-                            .build();
+                            .build());
 
         for (int i=0;i<60;i++) {
-            TypedActorConfiguration tac = new TypedActorConfiguration();
-            tac.dispatcher(md);
-
-            remote().registerTypedActor("my-service-" + i, TypedActor
-                    .newInstance(MyService.class, MyAkkaService.class, tac));
+            remote().registerTypedActor("my-service-" + i, TypedActor.newInstance(MyService.class, MyAkkaService.class, tac));
         }
 
-        listActors();
-
-    }
-
-    private static void listActors() {
         ActorRef[] actors = registry().actors();
-        for (ActorRef ar : actors) {
+        for (ActorRef ar : actors)
             System.out.println("ACTOR ID: " + ar.getId());
-        }
     }
 }
