@@ -19,9 +19,6 @@ import static akka.actor.Actors.remote;
  */
 public class Bootstrap {
 
-    private static TypedActorConfigurator configurator = new TypedActorConfigurator();
-    private final static int TIMEOUT = 5000;
-
     static {
        TypedActorConfiguration tac = new TypedActorConfiguration();
             tac.dispatcher(Dispatchers.newExecutorBasedEventDrivenWorkStealingDispatcher("pooled-dispatcher-")
