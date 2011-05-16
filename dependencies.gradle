@@ -1,7 +1,7 @@
 allprojects {
 
   springVersion = "3.0.5.RELEASE"
-  akkaVersion = "1.1"
+  akkaVersion = "1.2-SNAPSHOT"
   resteasyVersion = "2.0.1.GA"
   cxfVersion = "2.3.1"
   logbackVersion = "0.9.28"
